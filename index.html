@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceNow JavaScript - Interactive Learning</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            height: calc(100vh - 100px);
+            gap: 0;
+        }
+
+        /* Left Panel - Learning */
+        .left-panel {
+            flex: 1;
+            background: white;
+            overflow-y: auto;
+            padding: 40px;
+            border-right: 2px solid #ddd;
+        }
+
+        .lesson-title {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .lesson-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .concept {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .concept h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .concept p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+
+        .practice {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            border-radius: 5px;
+        }
+
+        .practice strong {
+            color: #2e7d32;
+        }
+
+        .practice code {
+            background: white;
+            padding: 5px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+
+        /* Right Panel - Editor */
+        .right-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #2d2d2d;
+            overflow: hidden;
+        }
+
+        .editor-header {
+            background: #1e1e1e;
+            color: white;
+            padding: 15px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-header h3 {
+            font-size: 16px;
+        }
+
+        .editor-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-run {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-run:hover {
+            background: #45a049;
+        }
+
+        .btn-copy {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-copy:hover {
+            background: #5568d3;
+        }
+
+        .btn-clear {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #e68900;
+        }
+
+        /* Code Editor */
+        textarea {
+            flex: 1;
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border: none;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: none;
+            line-height: 1.5;
+            outline: none;
+        }
+
+        /* Output */
+        .output-section {
+            border-top: 2px solid #667eea;
+            background: #1e1e1e;
+            color: #f8f8f2;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 35%;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .output-header {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .output-line {
+            margin: 5px 0;
+            padding: 5px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 3px;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        .nav-buttons button {
+            flex: 1;
+            padding: 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-prev {
+            background: #ccc;
+            color: #333;
+        }
+
+        .btn-prev:hover {
+            background: #bbb;
+        }
+
+        .btn-next {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-next:hover {
+            background: #5568d3;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-panel {
+                border-right: none;
+                border-bottom: 2px solid #ddd;
+            }
+
+            .left-panel {
+                max-height: 50%;
+            }
+
+            .right-panel {
+                max-height: 50%;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5568d3;
+        }
+
+        .success-message {
+            background: #4caf50;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .tips {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tips strong {
+            color: #e65100;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 ServiceNow JavaScript - Interactive Learning</h1>
+        <p>Learn by doing - Write code, see results instantly!</p>
+    </div>
+
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <h2 class="lesson-title">Day 1: Writing Your First Code</h2>
+            <p class="lesson-subtitle">Learn to say "Hello" to ServiceNow 👋</p>
+
+            <div class="concept">
+                <h3>📖 What is gs.info()?</h3>
+                <p>
+                    Think of <strong>gs.info()</strong> as a megaphone.
+                    You tell the computer something, and it prints it out so everyone can see!
+                </p>
+                <div class="code-example">
+gs.info('Hello World');
+                </div>
+            </div>
+
+            <div class="concept">
+                <h3>✅ Practice 1: Say Hello</h3>
+                <p>Type this in the code editor on the right:</p>
+                <div class="code-example">
+gs.info('Hello');
+                </div>
+                <p>👉 Click "Run" button to see what happens!</p>
+            </div>
+
+            <div class="practice">
+                <strong>💡 Tip:</strong> Everything you want to print must be in quotes: 'like this'
+            </div>
+
+            <div class="concept">
+                <h3>✅ Practice 2: Say Your Name</h3>
+                <p>Try this:</p>
+                <div class="code-example">
+gs.info('My name is Alice');
+                </div>
+            </div>
+
+            <div class="concept">
+                <h3>✅ Practice 3: Say Multiple Things</h3>
+                <p>You can say many things one after another:</p>
+                <div class="code-example">
+gs.info('Hello');
+gs.info('My name is Bob');
+gs.info('I like coding');
+                </div>
+            </div>
+
+            <div class="concept">
+                <h3>🎯 Challenge: About You</h3>
+                <p>Write 3 lines about yourself! For example:</p>
+                <div class="code-example">
+gs.info('Hello');
+gs.info('My name is Sarah');
+gs.info('I love learning');
+                </div>
+                <p>Change the text to match YOU! Then click Run.</p>
+            </div>
+
+            <div class="tips">
+                <strong>🌟 Key Points:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>gs.info() prints text</li>
+                    <li>Text must be in quotes</li>
+                    <li>You can use many gs.info() lines</li>
+                    <li>Each line prints separately</li>
+                </ul>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-prev">← Previous</button>
+                <button class="btn-next">Next Day →</button>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="editor-header">
+                <h3>💻 Try it Yourself</h3>
+                <div class="editor-buttons">
+                    <button class="btn btn-run" onclick="runCode()">▶ Run</button>
+                    <button class="btn btn-copy" onclick="copyCode()">📋 Copy to ServiceNow</button>
+                    <button class="btn btn-clear" onclick="clearCode()">🗑 Clear</button>
+                </div>
+            </div>
+
+            <textarea id="codeEditor" placeholder="Write your ServiceNow JavaScript code here...">gs.info('Hello World');</textarea>
+
+            <div class="output-section">
+                <div class="output-header">📤 Output:</div>
+                <div id="output"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>
+        // Simulated gs.info function
+        let outputLines = [];
+
+        window.gs = {
+            info: function(message) {
+                outputLines.push(String(message));
+            }
+        };
+
+        function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            outputLines = [];
+
+            try {
+                // Execute the code
+                eval(code);
+
+                // Display output
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = '';
+
+                if (outputLines.length === 0) {
+                    outputDiv.innerHTML = '<div style="color: #ff9800;">No output. Add gs.info() to print something!</div>';
+                } else {
+                    outputLines.forEach((line, index) => {
+                        const lineDiv = document.createElement('div');
+                        lineDiv.className = 'output-line';
+                        lineDiv.innerHTML = `<strong>Line ${index + 1}:</strong> ${escapeHtml(String(line))}`;
+                        outputDiv.appendChild(lineDiv);
+                    });
+                }
+            } catch (error) {
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = `<div style="color: #f44336;"><strong>❌ Error:</strong> ${escapeHtml(error.message)}</div>`;
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('codeEditor').value;
+            navigator.clipboard.writeText(code).then(() => {
+                // Show success message
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = '<div class="success-message">✅ Code copied! Paste it into ServiceNow System Definition > Scripts - Background</div>';
+                setTimeout(() => {
+                    runCode();
+                }, 2000);
+            });
+        }
+
+        function clearCode() {
+            document.getElementById('codeEditor').value = '';
+            document.getElementById('output').innerHTML = '';
+        }
+
+        // Load example code
+        window.addEventListener('load', function() {
+            document.getElementById('codeEditor').value = `gs.info('Hello');
+gs.info('My name is Alice');
+gs.info('I love learning');`;
+            runCode();
+        });
+    </script>
+</body>
+</html>
