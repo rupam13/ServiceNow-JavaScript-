@@ -3,187 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 10: Capstone Project</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; }
-        .container { display: flex; height: calc(100vh - 80px); }
-        .left-panel { flex: 1; background: white; overflow-y: auto; padding: 40px; border-right: 2px solid #ddd; }
-        .lesson-title { color: #667eea; font-size: 32px; margin-bottom: 10px; }
-        .concept { margin: 20px 0; padding: 20px; background: #f9f9f9; border-left: 4px solid #667eea; border-radius: 5px; }
-        .concept h3 { color: #667eea; margin-bottom: 10px; font-size: 18px; }
-        .concept p { line-height: 1.6; margin-bottom: 10px; color: #555; }
-        .code-example { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 11px; overflow-x: auto; line-height: 1.4; }
-        .real-world { background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; margin: 15px 0; border-radius: 5px; }
-        .real-world strong { color: #1565c0; }
-        .right-panel { flex: 1; display: flex; flex-direction: column; background: #2d2d2d; }
-        .editor-header { background: #1e1e1e; color: white; padding: 15px; border-bottom: 2px solid #667eea; }
-        .btn-run { background: #4caf50; color: white; padding: 8px 16px; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
-        textarea { flex: 1; background: #2d2d2d; color: #f8f8f2; border: none; padding: 15px; font-family: 'Courier New', monospace; font-size: 11px; }
-        .output-section { border-top: 2px solid #667eea; background: #1e1e1e; color: #f8f8f2; padding: 15px; overflow-y: auto; max-height: 35%; }
-        .output-line { margin: 5px 0; padding: 5px; background: rgba(102, 126, 234, 0.1); }
-        .nav-buttons { display: flex; gap: 20px; margin-top: 40px; }
-        .nav-buttons button { flex: 1; padding: 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .success { background: #4caf50; color: white; padding: 20px; border-radius: 5px; margin: 20px 0; text-align: center; }
-    </style>
+    <title>Day 10: ServiceNow JavaScript</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>.progress-fill { width: 100%; }</style>
 </head>
 <body>
     <div class="header">
-        <h1>🎉 Day 10: Capstone Project - Build Something Real!</h1>
-        <p>Combine everything you learned and build a complete ServiceNow application!</p>
+        <h1>💡 ServiceNow JavaScript Mastery</h1>
+        <p>Master JavaScript for ServiceNow Platform - Interactive Learning</p>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
     </div>
     <div class="container">
         <div class="left-panel">
-            <h2 class="lesson-title">Day 10: Capstone Project</h2>
-            <p style="color: #666; margin-bottom: 20px;">Build a complete ServiceNow application!</p>
-
-            <div class="success">
-                <h3>🎓 Congratulations!</h3>
-                <p>You've completed Days 1-9. Now let's build something real!</p>
-            </div>
-
+            <div class="day-badge">📅 Day 10 of 10</div>
+            <h2 class="lesson-title">Day 10 - Advanced JavaScript</h2>
+            <p class="lesson-subtitle">Continue your mastery journey! 🚀</p>
             <div class="concept">
-                <h3>🌍 Project: Incident Management Dashboard</h3>
-                <p>Create a dashboard that shows incident statistics and alerts admins about high-priority issues.</p>
-            </div>
-
-            <div class="real-world">
-                <strong>🎯 Complete Application Code:</strong>
+                <h3>📖 Advanced Concepts</h3>
+                <p>You're progressing well! Keep practicing and challenging yourself.</p>
                 <div class="code-example">
-// Incident Dashboard Application
-function IncidentDashboard() {
-    this.init();
-}
-
-IncidentDashboard.prototype = {
-    init: function() {
-        this.getCurrentUserInfo();
-        this.getIncidentStats();
-        this.checkHighPriority();
-    },
-
-    getCurrentUserInfo: function() {
-        var currentUser = gs.getUser();
-        gs.info('=== USER INFO ===');
-        gs.info('Name: ' + currentUser.getName());
-        gs.info('Email: ' + currentUser.getEmail());
-        gs.info('');
-    },
-
-    getIncidentStats: function() {
-        gs.info('=== INCIDENT STATISTICS ===');
-
-        var statuses = ['new', 'in_progress', 'on_hold', 'resolved'];
-        var stats = {};
-
-        for (var i = 0; i < statuses.length; i++) {
-            var gr = new GlideRecord('incident');
-            gr.addQuery('state', statuses[i]);
-            gr.query();
-            stats[statuses[i]] = gr.getRowCount();
-            gs.info(statuses[i] + ': ' + gr.getRowCount());
-        }
-        gs.info('');
-    },
-
-    checkHighPriority: function() {
-        gs.info('=== HIGH PRIORITY INCIDENTS ===');
-        var gr = new GlideRecord('incident');
-        gr.addQuery('priority', '1');
-        gr.addQuery('state', '!=', 'resolved');
-        gr.orderByDesc('created_on');
-        gr.setLimit(5);
-        gr.query();
-
-        if (gr.getRowCount() === 0) {
-            gs.info('✅ No high-priority incidents!');
-        } else {
-            while (gr.next()) {
-                gs.info('🔴 ' + gr.getValue('number') +
-                       ' - ' + gr.getDisplayValue('assigned_to'));
-            }
-        }
-    },
-
-    checkUserRole: function(roleName) {
-        var gr = new GlideRecord('sys_user_role');
-        gr.addQuery('user', gs.getUser().getID());
-        gr.addQuery('role.name', roleName);
-        gr.query();
-        return gr.getRowCount() > 0;
-    }
-};
-
-// Run the dashboard
-var dashboard = new IncidentDashboard();
+// Code examples and lessons here
+gs.info('Day 10 content');
                 </div>
             </div>
-
-            <div class="concept">
-                <h3>📋 What This Code Does:</h3>
-                <ul style="margin-left: 20px; line-height: 2; color: #555;">
-                    <li>✅ Gets current user information</li>
-                    <li>✅ Counts incidents by status</li>
-                    <li>✅ Finds high-priority incidents</li>
-                    <li>✅ Shows who incidents are assigned to</li>
-                    <li>✅ Checks user roles</li>
+            <div class="real-world">
+                <strong>🌍 REAL ServiceNow Examples</strong>
+                <p>Real-world ServiceNow code examples and use cases</p>
+            </div>
+            <div class="tips">
+                <strong>🌟 Key Points:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                    <li>Master the fundamentals</li>
+                    <li>Practice consistently</li>
+                    <li>Build real applications</li>
+                    <li>Keep learning!</li>
                 </ul>
             </div>
-
-            <div class="concept">
-                <h3>🎯 Your Challenge:</h3>
-                <p>Try modifying the code to:</p>
-                <ul style="margin-left: 20px; line-height: 2; color: #555;">
-                    <li>Show only incidents assigned to you</li>
-                    <li>Filter by department</li>
-                    <li>Show incidents with specific keywords</li>
-                    <li>Add email notifications for high priority</li>
-                </ul>
-            </div>
-
             <div class="nav-buttons">
-                <button class="btn-prev" style="background: #667eea; color: white;" onclick="window.location.href='day9.html'">← Day 9</button>
-                <button class="btn-next" style="background: #ff9800; color: white; font-size: 16px;" onclick="alert('🎉 Congratulations!\n\nYou completed the 10-Day ServiceNow JavaScript Course!\n\nYou can now:\n✅ Write JavaScript code\n✅ Query databases with GlideRecord\n✅ Work with ServiceNow objects\n✅ Build real applications!\n\nKeep practicing and building!')">🏆 Celebrate!</button>
+                <button class="btn-prev" onclick="window.location.href='day'$((${day}-1))'.html'">← Previous</button>
+                <button class="btn-next" onclick="window.location.href='day'$((${day}+1))'.html'">Next →</button>
             </div>
         </div>
-
         <div class="right-panel">
             <div class="editor-header">
-                <h3>💻 Complete Application</h3>
-                <button class="btn-run" onclick="runCode()">▶ Run Demo</button>
+                <h3>💻 Interactive Code Editor</h3>
+                <div class="editor-buttons">
+                    <button class="btn btn-run" onclick="runCode()">▶ Run</button>
+                    <button class="btn btn-copy" onclick="copyCode()">📋 Copy</button>
+                    <button class="btn btn-clear" onclick="clearCode()">🗑 Clear</button>
+                </div>
             </div>
-            <textarea id="codeEditor">// CAPSTONE PROJECT
-// Incident Management Dashboard
-
-gs.info('============================');
-gs.info('  INCIDENT DASHBOARD v1.0');
-gs.info('============================');
-gs.info('');
-
-// User Info
-var user = gs.getUser();
-gs.info('Current User: ' + user.getName());
-gs.info('Email: ' + user.getEmail());
-gs.info('');
-
-// Incident counts
-gs.info('=== INCIDENT STATUS ===');
-gs.info('New: 5');
-gs.info('In Progress: 3');
-gs.info('On Hold: 2');
-gs.info('Resolved: 12');
-gs.info('');
-
-// High Priority
-gs.info('=== HIGH PRIORITY (Critical) ===');
-gs.info('🔴 INC0001234 - Assigned: John');
-gs.info('🔴 INC0001235 - Assigned: Jane');
-gs.info('');
-
-gs.info('✅ Dashboard Complete!');</textarea>
+            <textarea id="codeEditor">// Day 10 - Your code here
+gs.info('Welcome to Day 10!');</textarea>
             <div class="output-section">
-                <div class="output-header">📤 Output:</div>
+                <div class="output-header">📤 Output Console</div>
                 <div id="output"></div>
             </div>
         </div>
@@ -194,13 +68,15 @@ gs.info('✅ Dashboard Complete!');</textarea>
         function runCode() {
             try {
                 eval(document.getElementById('codeEditor').value);
-                document.getElementById('output').innerHTML = outputLines.map((l, i) =>
-                    `<div class="output-line">${l}</div>`
-                ).join('');
+                document.getElementById('output').innerHTML = outputLines.map((l,i) => 
+                    `<div class="output-line"><strong>[${i+1}]</strong> ${l}</div>`
+                ).join('') || '<div style="color: #ffc107;">No output</div>';
             } catch (e) {
-                document.getElementById('output').innerHTML = '❌ ' + e.message;
+                document.getElementById('output').innerHTML = `<div style="color: #ff6b6b;">❌ ${e.message}</div>`;
             }
         }
+        function copyCode() { navigator.clipboard.writeText(document.getElementById('codeEditor').value); alert('✅ Copied!'); }
+        function clearCode() { document.getElementById('codeEditor').value = ''; document.getElementById('output').innerHTML = ''; }
         window.addEventListener('load', runCode);
     </script>
 </body>
