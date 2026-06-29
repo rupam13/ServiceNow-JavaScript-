@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 6: Arrays & Data Lists</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; }
+        .container { display: flex; height: calc(100vh - 80px); }
+        .left-panel { flex: 1; background: white; overflow-y: auto; padding: 40px; border-right: 2px solid #ddd; }
+        .lesson-title { color: #667eea; font-size: 32px; margin-bottom: 10px; }
+        .concept { margin: 20px 0; padding: 20px; background: #f9f9f9; border-left: 4px solid #667eea; border-radius: 5px; }
+        .concept h3 { color: #667eea; margin-bottom: 10px; }
+        .code-example { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 12px; overflow-x: auto; }
+        .real-world { background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .right-panel { flex: 1; display: flex; flex-direction: column; background: #2d2d2d; }
+        .editor-header { background: #1e1e1e; color: white; padding: 15px; border-bottom: 2px solid #667eea; display: flex; justify-content: space-between; }
+        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; }
+        .btn-run { background: #4caf50; color: white; }
+        textarea { flex: 1; background: #2d2d2d; color: #f8f8f2; border: none; padding: 15px; font-family: 'Courier New', monospace; font-size: 12px; }
+        .output-section { border-top: 2px solid #667eea; background: #1e1e1e; color: #f8f8f2; padding: 15px; overflow-y: auto; max-height: 35%; }
+        .output-line { margin: 5px 0; padding: 5px; background: rgba(102, 126, 234, 0.1); }
+        .nav-buttons { display: flex; gap: 20px; margin-top: 40px; }
+        .nav-buttons button { flex: 1; padding: 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        @media (max-width: 1024px) { .container { flex-direction: column; } .left-panel { max-height: 50%; } .right-panel { max-height: 50%; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Day 6: Arrays - Store Lists of Data</h1>
+        <p>Store multiple items in one variable!</p>
+    </div>
+    <div class="container">
+        <div class="left-panel">
+            <h2 class="lesson-title">Day 6: Arrays</h2>
+            <p style="color: #666; margin-bottom: 20px;">Store multiple items like a shopping list 📝</p>
+
+            <div class="concept">
+                <h3>📖 What is an Array?</h3>
+                <p>An array stores multiple items in one variable.</p>
+                <div class="code-example">
+var fruits = ['Apple', 'Banana', 'Orange'];
+gs.info(fruits[0]); // Apple
+gs.info(fruits[1]); // Banana
+                </div>
+            </div>
+
+            <div class="real-world">
+                <strong>🌍 REAL ServiceNow: Store VIP Users</strong>
+                <div class="code-example">
+var vipUsers = ['user1', 'user2', 'user3'];
+
+for (var i = 0; i < vipUsers.length; i++) {
+    gs.info('VIP: ' + vipUsers[i]);
+}
+                </div>
+            </div>
+
+            <div class="concept">
+                <h3>✅ Practice: Add/Remove Items</h3>
+                <div class="code-example">
+var colors = ['Red', 'Blue'];
+colors.push('Green');      // Add
+colors.pop();              // Remove last
+gs.info(colors.length);    // Size
+                </div>
+            </div>
+
+            <div class="real-world">
+                <strong>🌍 Get All Incident Numbers:</strong>
+                <div class="code-example">
+var incidents = [];
+var gr = new GlideRecord('incident');
+gr.query();
+
+while (gr.next()) {
+    incidents.push(gr.getValue('number'));
+}
+
+gs.info('Total incidents: ' + incidents.length);
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-prev" style="background: #667eea; color: white;" onclick="window.location.href='day5.html'">← Day 5</button>
+                <button class="btn-next" style="background: #4caf50; color: white;" onclick="window.location.href='day7.html'">Day 7 →</button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="editor-header">
+                <h3>💻 Try it</h3>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-run" onclick="runCode()">▶ Run</button>
+                </div>
+            </div>
+            <textarea id="codeEditor">// Create array
+var names = ['Alice', 'Bob', 'Charlie'];
+
+// Access items
+gs.info('First: ' + names[0]);
+gs.info('Second: ' + names[1]);
+
+// Loop through array
+for (var i = 0; i < names.length; i++) {
+    gs.info('Person: ' + names[i]);
+}</textarea>
+            <div class="output-section">
+                <div class="output-header">📤 Output:</div>
+                <div id="output"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let outputLines = [];
+        window.gs = { info: function(message) { outputLines.push(String(message)); } };
+        function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            outputLines = [];
+            try {
+                eval(code);
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = '';
+                outputLines.forEach((line, i) => {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = 'output-line';
+                    lineDiv.textContent = (i+1) + ': ' + line;
+                    outputDiv.appendChild(lineDiv);
+                });
+            } catch (error) {
+                document.getElementById('output').innerHTML = '❌ ' + error.message;
+            }
+        }
+        window.addEventListener('load', runCode);
+    </script>
+</body>
+</html>
