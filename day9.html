@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 9: ServiceNow JavaScript</title>
+    <title>Day 9: Error Handling - ServiceNow JavaScript</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>.progress-fill { width: 90%; }</style>
@@ -17,32 +17,46 @@
     <div class="container">
         <div class="left-panel">
             <div class="day-badge">📅 Day 9 of 10</div>
-            <h2 class="lesson-title">Day 9 - Advanced JavaScript</h2>
-            <p class="lesson-subtitle">Continue your mastery journey! 🚀</p>
+            <h2 class="lesson-title">Error Handling - Handle Problems</h2>
+            <p class="lesson-subtitle">Write robust code! 🛡️</p>
             <div class="concept">
-                <h3>📖 Advanced Concepts</h3>
-                <p>You're progressing well! Keep practicing and challenging yourself.</p>
+                <h3>📖 Try/Catch Basics</h3>
+                <p>Try/catch blocks handle errors gracefully.</p>
                 <div class="code-example">
-// Code examples and lessons here
-gs.info('Day 9 content');
+try {
+    var result = 10 / 2;
+    gs.info('Result: ' + result);
+} catch (error) {
+    gs.info('Error: ' + error);
+}
                 </div>
             </div>
-            <div class="real-world">
-                <strong>🌍 REAL ServiceNow Examples</strong>
-                <p>Real-world ServiceNow code examples and use cases</p>
+            <div class="concept">
+                <h3>✨ Safe Database Query</h3>
+                <div class="code-example">
+try {
+    var gr = new GlideRecord('incident');
+    gr.query();
+    if (gr.next()) {
+        gs.info('Found: ' + gr.getValue('number'));
+    }
+} catch (e) {
+    gs.info('Query failed: ' + e);
+}
+                </div>
             </div>
             <div class="tips">
                 <strong>🌟 Key Points:</strong>
                 <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
-                    <li>Master the fundamentals</li>
-                    <li>Practice consistently</li>
-                    <li>Build real applications</li>
-                    <li>Keep learning!</li>
+                    <li>try { risky code }</li>
+                    <li>catch (error) { handle }</li>
+                    <li>finally { cleanup }</li>
+                    <li>Prevent crashes</li>
                 </ul>
             </div>
             <div class="nav-buttons">
-                <button class="btn-prev" onclick="window.location.href='day'$((${day}-1))'.html'">← Previous</button>
-                <button class="btn-next" onclick="window.location.href='day'$((${day}+1))'.html'">Next →</button>
+                <button class="btn-prev" onclick="window.location.href='day8.html'">← Day 8</button>
+                <button class="btn-next" onclick="window.location.href='day10.html'">Day 10 →</button>
             </div>
         </div>
         <div class="right-panel">
@@ -54,8 +68,14 @@ gs.info('Day 9 content');
                     <button class="btn btn-clear" onclick="clearCode()">🗑 Clear</button>
                 </div>
             </div>
-            <textarea id="codeEditor">// Day 9 - Your code here
-gs.info('Welcome to Day 9!');</textarea>
+            <textarea id="codeEditor">try {
+    var x = 10;
+    var y = 2;
+    var result = x / y;
+    gs.info('Result: ' + result);
+} catch (error) {
+    gs.info('Error: ' + error);
+}</textarea>
             <div class="output-section">
                 <div class="output-header">📤 Output Console</div>
                 <div id="output"></div>
@@ -68,7 +88,7 @@ gs.info('Welcome to Day 9!');</textarea>
         function runCode() {
             try {
                 eval(document.getElementById('codeEditor').value);
-                document.getElementById('output').innerHTML = outputLines.map((l,i) => 
+                document.getElementById('output').innerHTML = outputLines.map((l,i) =>
                     `<div class="output-line"><strong>[${i+1}]</strong> ${l}</div>`
                 ).join('') || '<div style="color: #ffc107;">No output</div>';
             } catch (e) {

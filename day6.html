@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 6: ServiceNow JavaScript</title>
+    <title>Day 6: Arrays - ServiceNow JavaScript</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>.progress-fill { width: 60%; }</style>
@@ -17,32 +17,29 @@
     <div class="container">
         <div class="left-panel">
             <div class="day-badge">📅 Day 6 of 10</div>
-            <h2 class="lesson-title">Day 6 - Advanced JavaScript</h2>
-            <p class="lesson-subtitle">Continue your mastery journey! 🚀</p>
+            <h2 class="lesson-title">Arrays - Store Lists</h2>
+            <p class="lesson-subtitle">Manage multiple items! 📋</p>
             <div class="concept">
-                <h3>📖 Advanced Concepts</h3>
-                <p>You're progressing well! Keep practicing and challenging yourself.</p>
+                <h3>📖 What is an Array?</h3>
+                <p>Arrays store multiple items in one variable like a shopping list.</p>
                 <div class="code-example">
-// Code examples and lessons here
-gs.info('Day 6 content');
+var fruits = ['Apple', 'Banana', 'Orange'];
+gs.info(fruits[0]); // Apple
+gs.info(fruits.length); // 3
                 </div>
-            </div>
-            <div class="real-world">
-                <strong>🌍 REAL ServiceNow Examples</strong>
-                <p>Real-world ServiceNow code examples and use cases</p>
             </div>
             <div class="tips">
                 <strong>🌟 Key Points:</strong>
                 <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
-                    <li>Master the fundamentals</li>
-                    <li>Practice consistently</li>
-                    <li>Build real applications</li>
-                    <li>Keep learning!</li>
+                    <li>var arr = [item1, item2]</li>
+                    <li>Access with arr[0], arr[1]...</li>
+                    <li>push() adds to end</li>
+                    <li>length shows size</li>
                 </ul>
             </div>
             <div class="nav-buttons">
-                <button class="btn-prev" onclick="window.location.href='day'$((${day}-1))'.html'">← Previous</button>
-                <button class="btn-next" onclick="window.location.href='day'$((${day}+1))'.html'">Next →</button>
+                <button class="btn-prev" onclick="window.location.href='day5.html'">← Day 5</button>
+                <button class="btn-next" onclick="window.location.href='day7.html'">Day 7 →</button>
             </div>
         </div>
         <div class="right-panel">
@@ -54,8 +51,10 @@ gs.info('Day 6 content');
                     <button class="btn btn-clear" onclick="clearCode()">🗑 Clear</button>
                 </div>
             </div>
-            <textarea id="codeEditor">// Day 6 - Your code here
-gs.info('Welcome to Day 6!');</textarea>
+            <textarea id="codeEditor">var names = ['Alice', 'Bob', 'Charlie'];
+gs.info(names[0]);
+gs.info(names[1]);
+gs.info('Total: ' + names.length);</textarea>
             <div class="output-section">
                 <div class="output-header">📤 Output Console</div>
                 <div id="output"></div>
@@ -68,7 +67,7 @@ gs.info('Welcome to Day 6!');</textarea>
         function runCode() {
             try {
                 eval(document.getElementById('codeEditor').value);
-                document.getElementById('output').innerHTML = outputLines.map((l,i) => 
+                document.getElementById('output').innerHTML = outputLines.map((l,i) =>
                     `<div class="output-line"><strong>[${i+1}]</strong> ${l}</div>`
                 ).join('') || '<div style="color: #ffc107;">No output</div>';
             } catch (e) {

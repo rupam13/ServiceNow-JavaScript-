@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 4: ServiceNow JavaScript</title>
+    <title>Day 4: Loops - ServiceNow JavaScript</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>.progress-fill { width: 40%; }</style>
@@ -17,32 +17,48 @@
     <div class="container">
         <div class="left-panel">
             <div class="day-badge">📅 Day 4 of 10</div>
-            <h2 class="lesson-title">Day 4 - Advanced JavaScript</h2>
-            <p class="lesson-subtitle">Continue your mastery journey! 🚀</p>
+            <h2 class="lesson-title">Loops - Repeat Code</h2>
+            <p class="lesson-subtitle">Automate repetitive tasks! 🔄</p>
             <div class="concept">
-                <h3>📖 Advanced Concepts</h3>
-                <p>You're progressing well! Keep practicing and challenging yourself.</p>
+                <h3>📖 What is a Loop?</h3>
+                <p>A loop repeats code automatically. Instead of writing the same thing 10 times, tell it "do this 10 times"!</p>
                 <div class="code-example">
-// Code examples and lessons here
-gs.info('Day 4 content');
+for (var i = 1; i <= 5; i++) {
+    gs.info('Count: ' + i);
+}
+                </div>
+            </div>
+            <div class="concept">
+                <h3>✨ Loop Through List</h3>
+                <div class="code-example">
+var names = ['Alice', 'Bob', 'Charlie'];
+for (var i = 0; i < names.length; i++) {
+    gs.info(names[i]);
+}
                 </div>
             </div>
             <div class="real-world">
-                <strong>🌍 REAL ServiceNow Examples</strong>
-                <p>Real-world ServiceNow code examples and use cases</p>
+                <strong>🌍 REAL ServiceNow: Query Loop</strong>
+                <div class="code-example">
+var gr = new GlideRecord('incident');
+gr.query();
+while (gr.next()) {
+    gs.info(gr.getValue('number'));
+}
+                </div>
             </div>
             <div class="tips">
                 <strong>🌟 Key Points:</strong>
                 <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
-                    <li>Master the fundamentals</li>
-                    <li>Practice consistently</li>
-                    <li>Build real applications</li>
-                    <li>Keep learning!</li>
+                    <li>for loop repeats a set number of times</li>
+                    <li>while loop repeats while condition is true</li>
+                    <li>Use break to stop the loop</li>
+                    <li>Use continue to skip to next iteration</li>
                 </ul>
             </div>
             <div class="nav-buttons">
-                <button class="btn-prev" onclick="window.location.href='day'$((${day}-1))'.html'">← Previous</button>
-                <button class="btn-next" onclick="window.location.href='day'$((${day}+1))'.html'">Next →</button>
+                <button class="btn-prev" onclick="window.location.href='day3.html'">← Day 3</button>
+                <button class="btn-next" onclick="window.location.href='day5.html'">Day 5 →</button>
             </div>
         </div>
         <div class="right-panel">
@@ -54,8 +70,10 @@ gs.info('Day 4 content');
                     <button class="btn btn-clear" onclick="clearCode()">🗑 Clear</button>
                 </div>
             </div>
-            <textarea id="codeEditor">// Day 4 - Your code here
-gs.info('Welcome to Day 4!');</textarea>
+            <textarea id="codeEditor">// Loop from 1 to 5
+for (var i = 1; i <= 5; i++) {
+    gs.info('Number: ' + i);
+}</textarea>
             <div class="output-section">
                 <div class="output-header">📤 Output Console</div>
                 <div id="output"></div>
@@ -68,7 +86,7 @@ gs.info('Welcome to Day 4!');</textarea>
         function runCode() {
             try {
                 eval(document.getElementById('codeEditor').value);
-                document.getElementById('output').innerHTML = outputLines.map((l,i) => 
+                document.getElementById('output').innerHTML = outputLines.map((l,i) =>
                     `<div class="output-line"><strong>[${i+1}]</strong> ${l}</div>`
                 ).join('') || '<div style="color: #ffc107;">No output</div>';
             } catch (e) {

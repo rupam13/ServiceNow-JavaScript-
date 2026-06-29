@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 8: ServiceNow JavaScript</title>
+    <title>Day 8: GlideRecord - ServiceNow JavaScript</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>.progress-fill { width: 80%; }</style>
@@ -17,32 +17,40 @@
     <div class="container">
         <div class="left-panel">
             <div class="day-badge">📅 Day 8 of 10</div>
-            <h2 class="lesson-title">Day 8 - Advanced JavaScript</h2>
-            <p class="lesson-subtitle">Continue your mastery journey! 🚀</p>
+            <h2 class="lesson-title">GlideRecord - Query Database</h2>
+            <p class="lesson-subtitle">Access ServiceNow data! 🗄️</p>
             <div class="concept">
-                <h3>📖 Advanced Concepts</h3>
-                <p>You're progressing well! Keep practicing and challenging yourself.</p>
+                <h3>📖 GlideRecord Basics</h3>
+                <p>GlideRecord queries tables and retrieves data from ServiceNow.</p>
                 <div class="code-example">
-// Code examples and lessons here
-gs.info('Day 8 content');
+var gr = new GlideRecord('incident');
+gr.query();
+while (gr.next()) {
+    gs.info(gr.getValue('number'));
+}
                 </div>
             </div>
             <div class="real-world">
-                <strong>🌍 REAL ServiceNow Examples</strong>
-                <p>Real-world ServiceNow code examples and use cases</p>
+                <strong>🌍 REAL ServiceNow: High Priority Incidents</strong>
+                <div class="code-example">
+var gr = new GlideRecord('incident');
+gr.addQuery('priority', '1');
+gr.query();
+gs.info('Critical incidents: ' + gr.getRowCount());
+                </div>
             </div>
             <div class="tips">
                 <strong>🌟 Key Points:</strong>
                 <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
-                    <li>Master the fundamentals</li>
-                    <li>Practice consistently</li>
-                    <li>Build real applications</li>
-                    <li>Keep learning!</li>
+                    <li>new GlideRecord(table)</li>
+                    <li>addQuery() filters results</li>
+                    <li>query() executes</li>
+                    <li>getValue() gets field value</li>
                 </ul>
             </div>
             <div class="nav-buttons">
-                <button class="btn-prev" onclick="window.location.href='day'$((${day}-1))'.html'">← Previous</button>
-                <button class="btn-next" onclick="window.location.href='day'$((${day}+1))'.html'">Next →</button>
+                <button class="btn-prev" onclick="window.location.href='day7.html'">← Day 7</button>
+                <button class="btn-next" onclick="window.location.href='day9.html'">Day 9 →</button>
             </div>
         </div>
         <div class="right-panel">
@@ -54,8 +62,12 @@ gs.info('Day 8 content');
                     <button class="btn btn-clear" onclick="clearCode()">🗑 Clear</button>
                 </div>
             </div>
-            <textarea id="codeEditor">// Day 8 - Your code here
-gs.info('Welcome to Day 8!');</textarea>
+            <textarea id="codeEditor">// GlideRecord example
+gs.info('ServiceNow Database Queries:');
+gs.info('1. Query incident table');
+gs.info('2. Filter by priority');
+gs.info('3. Get field values');
+gs.info('Ready to use in your instance!');</textarea>
             <div class="output-section">
                 <div class="output-header">📤 Output Console</div>
                 <div id="output"></div>
@@ -68,7 +80,7 @@ gs.info('Welcome to Day 8!');</textarea>
         function runCode() {
             try {
                 eval(document.getElementById('codeEditor').value);
-                document.getElementById('output').innerHTML = outputLines.map((l,i) => 
+                document.getElementById('output').innerHTML = outputLines.map((l,i) =>
                     `<div class="output-line"><strong>[${i+1}]</strong> ${l}</div>`
                 ).join('') || '<div style="color: #ffc107;">No output</div>';
             } catch (e) {

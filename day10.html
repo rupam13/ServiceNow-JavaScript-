@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 10: ServiceNow JavaScript</title>
+    <title>Day 10: Capstone - ServiceNow JavaScript</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>.progress-fill { width: 100%; }</style>
@@ -17,45 +17,81 @@
     <div class="container">
         <div class="left-panel">
             <div class="day-badge">📅 Day 10 of 10</div>
-            <h2 class="lesson-title">Day 10 - Advanced JavaScript</h2>
-            <p class="lesson-subtitle">Continue your mastery journey! 🚀</p>
+            <h2 class="lesson-title">Capstone Project - Build Real Application</h2>
+            <p class="lesson-subtitle">Combine everything you learned! 🎓</p>
             <div class="concept">
-                <h3>📖 Advanced Concepts</h3>
-                <p>You're progressing well! Keep practicing and challenging yourself.</p>
+                <h3>🎯 Your Final Challenge</h3>
+                <p>Build a complete incident dashboard using all concepts from Days 1-9.</p>
                 <div class="code-example">
-// Code examples and lessons here
-gs.info('Day 10 content');
+function IncidentDashboard() {
+    this.init();
+}
+IncidentDashboard.prototype = {
+    init: function() {
+        this.getStats();
+    },
+    getStats: function() {
+        gs.info('Dashboard initialized');
+    }
+};
+var dashboard = new IncidentDashboard();
                 </div>
             </div>
             <div class="real-world">
-                <strong>🌍 REAL ServiceNow Examples</strong>
-                <p>Real-world ServiceNow code examples and use cases</p>
+                <strong>🌍 Complete Application Structure</strong>
+                <p>Use functions, loops, arrays, objects, GlideRecord, error handling, and classes together to build a professional incident management dashboard.</p>
             </div>
             <div class="tips">
-                <strong>🌟 Key Points:</strong>
+                <strong>🌟 You've Learned:</strong>
                 <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
-                    <li>Master the fundamentals</li>
-                    <li>Practice consistently</li>
-                    <li>Build real applications</li>
-                    <li>Keep learning!</li>
+                    <li>✅ JavaScript fundamentals</li>
+                    <li>✅ Control flow & loops</li>
+                    <li>✅ Functions & scope</li>
+                    <li>✅ Data structures</li>
+                    <li>✅ ServiceNow APIs</li>
+                    <li>✅ Error handling</li>
                 </ul>
             </div>
             <div class="nav-buttons">
-                <button class="btn-prev" onclick="window.location.href='day'$((${day}-1))'.html'">← Previous</button>
-                <button class="btn-next" onclick="window.location.href='day'$((${day}+1))'.html'">Next →</button>
+                <button class="btn-prev" onclick="window.location.href='day9.html'">← Day 9</button>
+                <button class="btn-next" onclick="alert('🎉 Congratulations! You completed all 10 days!\n\nYou are now ready to:\n✅ Write professional ServiceNow scripts\n✅ Query databases\n✅ Build applications\n✅ Handle errors gracefully\n\nKeep practicing and building amazing things!')" style="background: linear-gradient(135deg, #00ff88, #00d4ff); color: #0a0a15;">🏆 Finish!</button>
             </div>
         </div>
         <div class="right-panel">
             <div class="editor-header">
-                <h3>💻 Interactive Code Editor</h3>
+                <h3>💻 Your Capstone Project</h3>
                 <div class="editor-buttons">
                     <button class="btn btn-run" onclick="runCode()">▶ Run</button>
                     <button class="btn btn-copy" onclick="copyCode()">📋 Copy</button>
                     <button class="btn btn-clear" onclick="clearCode()">🗑 Clear</button>
                 </div>
             </div>
-            <textarea id="codeEditor">// Day 10 - Your code here
-gs.info('Welcome to Day 10!');</textarea>
+            <textarea id="codeEditor">// Day 10: Capstone Project
+// Build a complete incident dashboard
+
+gs.info('============================');
+gs.info('  INCIDENT DASHBOARD');
+gs.info('============================');
+gs.info('');
+
+// User Info
+gs.info('Current User: System Administrator');
+gs.info('');
+
+// Incident Stats
+gs.info('=== INCIDENT STATUS ===');
+gs.info('New: 5');
+gs.info('In Progress: 3');
+gs.info('Resolved: 12');
+gs.info('');
+
+// High Priority
+gs.info('=== HIGH PRIORITY ===');
+gs.info('INC0001234 - Critical');
+gs.info('INC0001235 - High');
+gs.info('');
+
+gs.info('✅ Dashboard initialized!');</textarea>
             <div class="output-section">
                 <div class="output-header">📤 Output Console</div>
                 <div id="output"></div>
@@ -68,7 +104,7 @@ gs.info('Welcome to Day 10!');</textarea>
         function runCode() {
             try {
                 eval(document.getElementById('codeEditor').value);
-                document.getElementById('output').innerHTML = outputLines.map((l,i) => 
+                document.getElementById('output').innerHTML = outputLines.map((l,i) =>
                     `<div class="output-line"><strong>[${i+1}]</strong> ${l}</div>`
                 ).join('') || '<div style="color: #ffc107;">No output</div>';
             } catch (e) {
