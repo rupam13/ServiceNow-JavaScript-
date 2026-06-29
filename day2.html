@@ -4,304 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Day 2: Variables - ServiceNow JavaScript</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .container {
-            display: flex;
-            height: calc(100vh - 80px);
-            gap: 0;
-        }
-
-        .left-panel {
-            flex: 1;
-            background: white;
-            overflow-y: auto;
-            padding: 40px;
-            border-right: 2px solid #ddd;
-        }
-
-        .lesson-title {
-            color: #667eea;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .lesson-subtitle {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 30px;
-        }
-
-        .concept {
-            margin: 30px 0;
-            padding: 20px;
-            background: #f9f9f9;
-            border-left: 4px solid #667eea;
-            border-radius: 5px;
-        }
-
-        .concept h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .concept p {
-            line-height: 1.6;
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        .code-example {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 10px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            overflow-x: auto;
-            line-height: 1.5;
-        }
-
-        .practice {
-            margin: 20px 0;
-            padding: 15px;
-            background: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            border-radius: 5px;
-        }
-
-        .practice strong {
-            color: #2e7d32;
-        }
-
-        .right-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #2d2d2d;
-            overflow: hidden;
-        }
-
-        .editor-header {
-            background: #1e1e1e;
-            color: white;
-            padding: 15px;
-            border-bottom: 2px solid #667eea;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .editor-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .btn-run {
-            background: #4caf50;
-            color: white;
-        }
-
-        .btn-run:hover {
-            background: #45a049;
-        }
-
-        .btn-copy {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-copy:hover {
-            background: #5568d3;
-        }
-
-        .btn-clear {
-            background: #ff9800;
-            color: white;
-        }
-
-        .btn-clear:hover {
-            background: #e68900;
-        }
-
-        textarea {
-            flex: 1;
-            background: #2d2d2d;
-            color: #f8f8f2;
-            border: none;
-            padding: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            resize: none;
-            line-height: 1.5;
-            outline: none;
-        }
-
-        .output-section {
-            border-top: 2px solid #667eea;
-            background: #1e1e1e;
-            color: #f8f8f2;
-            padding: 15px;
-            overflow-y: auto;
-            max-height: 35%;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .output-header {
-            color: #667eea;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .output-line {
-            margin: 5px 0;
-            padding: 5px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 3px;
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-            gap: 20px;
-        }
-
-        .nav-buttons button {
-            flex: 1;
-            padding: 12px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .btn-prev {
-            background: #ccc;
-            color: #333;
-        }
-
-        .btn-prev:hover {
-            background: #bbb;
-        }
-
-        .btn-next {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-next:hover {
-            background: #5568d3;
-        }
-
-        .tips {
-            background: #fff3e0;
-            border-left: 4px solid #ff9800;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .success-message {
-            background: #4caf50;
-            color: white;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .left-panel {
-                border-right: none;
-                border-bottom: 2px solid #ddd;
-                max-height: 50%;
-            }
-
-            .right-panel {
-                max-height: 50%;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1e1e1e;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 4px;
-        }
+        .progress-fill { width: 20%; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🚀 ServiceNow JavaScript - Day 2: Variables</h1>
-        <p>Save things in boxes so you can use them later!</p>
+        <h1>💡 ServiceNow JavaScript Mastery</h1>
+        <p>Master JavaScript for ServiceNow Platform - Interactive Learning</p>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
     </div>
 
     <div class="container">
         <div class="left-panel">
-            <h2 class="lesson-title">Day 2: Variables (Save Things in Boxes)</h2>
+            <div class="day-badge">📅 Day 2 of 10</div>
+            <h2 class="lesson-title">Variables - Save Data in Boxes</h2>
             <p class="lesson-subtitle">Think like a piggy bank 🏦</p>
 
             <div class="concept">
                 <h3>📖 What is a Variable?</h3>
-                <p>
-                    A variable is like a box with a label.
-                    You put something inside, close the lid, and use the label to remember what's inside!
-                </p>
+                <p>A variable is like a labeled box. You put something inside, close the lid, and use the label to remember what's inside!</p>
                 <div class="code-example">
 var name = 'Alice';
-gs.info(name);
+gs.info(name);  // Prints: Alice
                 </div>
             </div>
 
             <div class="concept">
-                <h3>✅ Practice 1: Make Your First Box</h3>
-                <p>Create a box with your name:</p>
+                <h3>✨ Create Your First Variable</h3>
+                <p>Try this in the editor:</p>
                 <div class="code-example">
 var myName = 'Bob';
 gs.info(myName);
@@ -309,12 +44,12 @@ gs.info(myName);
             </div>
 
             <div class="practice">
-                <strong>💡 Tip:</strong> <code>var</code> = make a box, <code>name</code> = label, <code>'Alice'</code> = what's inside
+                <strong>💡 Pro Tip:</strong> <code>var</code> creates a box, the name is your label, and the value is what's inside!
             </div>
 
             <div class="concept">
-                <h3>✅ Practice 2: Combine Two Boxes</h3>
-                <p>Mix two boxes together:</p>
+                <h3>🎯 Combine Variables</h3>
+                <p>Mix variables together with the + operator:</p>
                 <div class="code-example">
 var firstName = 'John';
 var lastName = 'Doe';
@@ -323,50 +58,35 @@ gs.info(fullName);
                 </div>
             </div>
 
-            <div class="concept">
-                <h3>✅ Practice 3: Math with Boxes</h3>
-                <p>You can do math with numbers in boxes:</p>
+            <div class="real-world">
+                <strong>🌍 REAL ServiceNow: Get User Info</strong>
                 <div class="code-example">
-var apple = 5;
-var orange = 3;
-var total = apple + orange;
-gs.info(total);
-                </div>
-            </div>
-
-            <div class="concept">
-                <h3>🎯 Challenge: Your Profile</h3>
-                <p>Create a profile about yourself:</p>
-                <div class="code-example">
-var name = 'Your Name';
-var age = 25;
-var city = 'Your City';
-gs.info('Name: ' + name);
-gs.info('Age: ' + age);
-gs.info('City: ' + city);
+var user = gs.getUser();
+var userName = user.getName();
+var userEmail = user.getEmail();
+gs.info('User: ' + userName);
                 </div>
             </div>
 
             <div class="tips">
                 <strong>🌟 Key Points:</strong>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>var = make a box</li>
-                    <li>label = what you call it (name, age, city)</li>
-                    <li>value = what's inside ('Alice', 25, etc.)</li>
-                    <li>+ combines things</li>
-                    <li>You can use the box many times</li>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                    <li>Variables store information</li>
+                    <li>Use var to create a variable</li>
+                    <li>Use + to combine text</li>
+                    <li>You can reuse variables</li>
                 </ul>
             </div>
 
             <div class="nav-buttons">
-                <button class="btn-prev" onclick="window.location.href='index.html'" style="background: #667eea; color: white;">← Day 1</button>
-                <button class="btn-next" onclick="window.location.href='day3.html'" style="background: #4caf50; color: white;">Day 3 →</button>
+                <button class="btn-prev" onclick="window.location.href='index.html'">← Day 1</button>
+                <button class="btn-next" onclick="window.location.href='day3.html'">Day 3 →</button>
             </div>
         </div>
 
         <div class="right-panel">
             <div class="editor-header">
-                <h3>💻 Try it Yourself</h3>
+                <h3>💻 Interactive Code Editor</h3>
                 <div class="editor-buttons">
                     <button class="btn btn-run" onclick="runCode()">▶ Run</button>
                     <button class="btn btn-copy" onclick="copyCode()">📋 Copy</button>
@@ -383,7 +103,7 @@ gs.info('Age: ' + age);
 gs.info('City: ' + city);</textarea>
 
             <div class="output-section">
-                <div class="output-header">📤 Output:</div>
+                <div class="output-header">📤 Output Console</div>
                 <div id="output"></div>
             </div>
         </div>
@@ -391,7 +111,6 @@ gs.info('City: ' + city);</textarea>
 
     <script>
         let outputLines = [];
-
         window.gs = {
             info: function(message) {
                 outputLines.push(String(message));
@@ -401,44 +120,28 @@ gs.info('City: ' + city);</textarea>
         function runCode() {
             const code = document.getElementById('codeEditor').value;
             outputLines = [];
-
             try {
                 eval(code);
-
                 const outputDiv = document.getElementById('output');
                 outputDiv.innerHTML = '';
-
                 if (outputLines.length === 0) {
-                    outputDiv.innerHTML = '<div style="color: #ff9800;">No output. Add gs.info() to print something!</div>';
+                    outputDiv.innerHTML = '<div style="color: #ffc107;">⚠️ No output</div>';
                 } else {
-                    outputLines.forEach((line, index) => {
+                    outputLines.forEach((line, i) => {
                         const lineDiv = document.createElement('div');
                         lineDiv.className = 'output-line';
-                        lineDiv.innerHTML = `<strong>${index + 1}:</strong> ${escapeHtml(String(line))}`;
+                        lineDiv.innerHTML = `<strong>[${i + 1}]</strong> ${line}`;
                         outputDiv.appendChild(lineDiv);
                     });
                 }
             } catch (error) {
-                const outputDiv = document.getElementById('output');
-                outputDiv.innerHTML = `<div style="color: #f44336;"><strong>❌ Error:</strong> ${escapeHtml(error.message)}</div>`;
+                document.getElementById('output').innerHTML = `<div style="color: #ff6b6b;"><strong>❌ Error:</strong> ${error.message}</div>`;
             }
         }
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
         function copyCode() {
-            const code = document.getElementById('codeEditor').value;
-            navigator.clipboard.writeText(code).then(() => {
-                const outputDiv = document.getElementById('output');
-                outputDiv.innerHTML = '<div class="success-message">✅ Code copied!</div>';
-                setTimeout(() => {
-                    runCode();
-                }, 2000);
-            });
+            navigator.clipboard.writeText(document.getElementById('codeEditor').value);
+            alert('✅ Copied to clipboard!');
         }
 
         function clearCode() {
@@ -446,9 +149,7 @@ gs.info('City: ' + city);</textarea>
             document.getElementById('output').innerHTML = '';
         }
 
-        window.addEventListener('load', function() {
-            runCode();
-        });
+        window.addEventListener('load', runCode);
     </script>
 </body>
 </html>
